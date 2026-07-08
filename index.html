@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexDoc - Прототип на Платформа за Адвокати</title>
+    <!-- Tailwind CSS за модерен и изчистен дизайн -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts за хубав шрифт -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-bold text-indigo-900 tracking-tight">Lex<span class="text-indigo-600">Doc</span></span>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-indigo-100">Прототип</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900">За адвокати</a>
+                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900">Вход</a>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">Регистрация</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Търсачка (Hero Section) -->
+    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white py-12 px-4 shadow-inner">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Намери добър адвокат и запази час веднага</h1>
+            <p class="text-indigo-200 text-base md:text-lg mb-8 font-light max-w-xl mx-auto">Бърз, сигурен и лесен достъп до водещи правни специалисти в цяла България. Онлайн или на място.</p>
+            
+            <!-- Интерактивен панел за търсене -->
+            <div class="bg-white p-2 rounded-xl shadow-xl flex flex-col md:flex-row gap-2 text-gray-800">
+                <div class="flex-1 min-w-0 px-3 py-2 text-left border-b md:border-b-0 md:border-r border-gray-100">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Сфера на правото</label>
+                    <select class="w-full bg-transparent font-medium text-gray-700 focus:outline-none appearance-none cursor-pointer">
+                        <option>Всички правни сфери</option>
+                        <option>Семейно право (Развод, издръжка)</option>
+                        <option>Имотно право (Сделки, нотариус)</option>
+                        <option>Наказателно право</option>
+                        <option>Корпоративно & Фирмено право</option>
+                    </select>
+                </div>
+                <div class="flex-1 min-w-0 px-3 py-2 text-left border-b md:border-b-0 md:border-r border-gray-100">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Град</label>
+                    <select id="citySelect" class="w-full bg-transparent font-medium text-gray-700 focus:outline-none appearance-none cursor-pointer">
+                        <option value="all">Всички градове</option>
+                        <option value="plovdiv">Пловдив</option>
+                        <option value="sofia">София</option>
+                        <option value="varna">Варна</option>
+                    </select>
+                </div>
+                <button onclick="filterLawyers()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-8 py-3 rounded-lg transition shadow-md md:w-auto w-full flex items-center justify-center gap-2">
+                    Търси
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основно съдържание: Резултати от търсенето -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <span>Резултати от търсенето</span>
+            <span id="resultsCount" class="bg-gray-200 text-gray-700 text-xs px-2.5 py-0.5 rounded-full font-semibold">2 адвокати</span>
+        </h2>
+
+        <!-- Списък с адвокати -->
+        <div class="space-y-6">
+            
+            <!-- Карта на Адвокат 1 -->
+            <div class="lawyer-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col lg:flex-row gap-6" data-city="plovdiv">
+                <!-- Снимка и инфо -->
+                <div class="flex gap-4 flex-1">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center font-bold text-2xl shrink-0">
+                        АН
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="text-lg font-bold text-gray-900 hover:text-indigo-600 transition cursor-pointer">Адвокат Александър Неделчев</h3>
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded border border-emerald-100 font-medium">Проверен</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Адвокатска колегия — Пловдив • 12 години опит</p>
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-md">Имотно право</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-md">Граждански дела</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm text-gray-600">
+                            <span class="flex items-center gap-1 font-medium"><span class="text-amber-500">★</span> 4.9 (42 отзива)</span>
+                            <span class="flex items-center gap-1"><span class="text-gray-400">🕒</span> Първа консултация: 60 лв.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Интерактивен Мини-календар (Като в Superdoc) -->
+                <div class="lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-100 pt-4 lg:pt-0 lg:pl-6 shrink-0">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Свободни часове за днес/утре</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="bookAppointment('Адвокат Александър Неделчев', 'Днес - 14:00')" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-700 text-sm font-medium py-2 px-1 rounded-lg text-center transition">
+                            14:00
+                        </button>
+                        <button onclick="bookAppointment('Адвокат Александър Неделчев', 'Днес - 15:30')" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-700 text-sm font-medium py-2 px-1 rounded-lg text-center transition">
+                            15:30
+                        </button>
+                        <button onclick="bookAppointment('Адвокат Александър Неделчев', 'Утре - 10:00')" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-700 text-sm font-medium py-2 px-1 rounded-lg text-center transition">
+                            Утре 10:00
+                        </button>
+                    </div>
+                    <button class="w-full mt-3 text-center text-xs font-medium text-indigo-600 hover:text-indigo-800 transition">Виж пълен календар →</button>
+                </div>
+            </div>
+
+            <!-- Карта на Адвокат 2 -->
+            <div class="lawyer-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col lg:flex-row gap-6" data-city="sofia">
+                <!-- Снимка и инфо -->
+                <div class="flex gap-4 flex-1">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center font-bold text-2xl shrink-0">
+                        МИ
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="text-lg font-bold text-gray-900 hover:text-indigo-600 transition cursor-pointer">Адвокат Мария Иванова</h3>
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded border border-emerald-100 font-medium">Проверен</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Адвокатска колегия — София • 8 години опит</p>
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-md">Семейно право</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-md">Фирмени казуси</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm text-gray-600">
+                            <span class="flex items-center gap-1 font-medium"><span class="text-amber-500">★</span> 5.0 (19 отзива)</span>
+                            <span class="flex items-center gap-1"><span class="text-gray-400">🕒</span> Първа консултация: 70 лв.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Интерактивен Мини-календар -->
+                <div class="lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-100 pt-4 lg:pt-0 lg:pl-6 shrink-0">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Свободни часове за днес/утре</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="bg-gray-50 text-gray-400 text-sm font-medium py-2 px-1 rounded-lg text-center cursor-not-allowed" disabled>
+                            Зает
+                        </button>
+                        <button onclick="bookAppointment('Адвокат Мария Иванова', 'Днес - 16:00')" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-700 text-sm font-medium py-2 px-1 rounded-lg text-center transition">
+                            16:00
+                        </button>
+                        <button onclick="bookAppointment('Адвокат Мария Иванова', 'Утре - 11:30')" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-700 text-sm font-medium py-2 px-1 rounded-lg text-center transition">
+                            Утре 11:30
+                        </button>
+                    </div>
+                    <button class="w-full mt-3 text-center text-xs font-medium text-indigo-600 hover:text-indigo-800 transition">Виж пълен календар →</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Попъп Модал за симулация на записване (Интерактивност) -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 px-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform transition-all scale-95 opacity-0 duration-200" id="modalContainer">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="text-xl font-bold text-gray-900">Запазване на час</h4>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-semibold leading-none">&times;</button>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Вие избирате час при <span id="modalLawyerName" class="font-semibold text-gray-900"></span> за <span id="modalTime" class="font-semibold text-indigo-600"></span>.</p>
+            
+            <form onsubmit="confirmBooking(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Вашите имена</label>
+                    <input type="text" required class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Иван Иванов">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Телефонен номер</label>
+                    <input type="tel" required class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="0888 123 456">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Кратко описание на казуса</label>
+                    <textarea class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none h-20" placeholder="Например: покупка на апартамент, дело за развод..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition shadow-md">Потвърди часа</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript логика за интерактивност (Vibe Coding стил) -->
+    <script>
+        function filterLawyers() {
+            const city = document.getElementById('citySelect').value;
+            const cards = document.querySelectorAll('.lawyer-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                if (city === 'all' || card.getAttribute('data-city') === city) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('resultsCount').innerText = `${visibleCount} ${visibleCount === 1 ? 'адвокат' : 'адвокати'}`;
+        }
+
+        function bookAppointment(lawyerName, time) {
+            document.getElementById('modalLawyerName').innerText = lawyerName;
+            document.getElementById('modalTime').innerText = time;
+            
+            const modal = document.getElementById('bookingModal');
+            const container = document.getElementById('modalContainer');
+            
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('bookingModal');
+            const container = document.getElementById('modalContainer');
+            
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 200);
+        }
+
+        function confirmBooking(e) {
+            e.preventDefault();
+            alert('Успешно симулирано запазване на час! В истинския сайт тук ще се изпрати SMS/Имейл до адвоката и клиента.');
+            closeModal();
+        }
+    </script>
+</body>
+</html>
