@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LexDoc — Премиум Правна Платформа</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Inter:wght=300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -27,190 +25,152 @@
 </head>
 <body>
 
-    <!-- НАВИГАЦИЯ -->
-    <nav class="bg-brand-navy text-white px-6 py-4 flex justify-between items-center shadow-lg sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-brand-navy text-white px-4 md:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-lg sticky top-0 z-50 transition-all duration-300">
         <div class="flex items-center space-x-2 cursor-pointer transform hover:scale-105 transition active:scale-95" onclick="switchView('landing')">
             <span class="brand-serif text-2xl font-bold tracking-wider text-brand-gold">LEX<span class="text-white">DOC</span></span>
         </div>
-        <div class="flex space-x-1 md:space-x-4">
+        <div class="flex flex-wrap justify-center gap-1.5 md:gap-4 w-full sm:w-auto">
             <button onclick="switchView('landing')" class="hover:text-brand-gold text-xs md:text-sm transition-all duration-200 px-2 py-2 rounded active:scale-95">Начало</button>
             <button onclick="switchView('search-zone')" class="hover:text-brand-gold text-xs md:text-sm transition-all duration-200 px-2 py-2 rounded active:scale-95">Запази час</button>
-            <button onclick="switchView('client-bookings')" class="text-brand-gold font-medium border border-brand-gold/30 hover:border-brand-gold text-xs md:text-sm px-3 py-2 rounded transition-all duration-200 active:scale-95">❌ Моите часове</button>
-            <button onclick="switchView('lawyer-dashboard')" class="bg-slate-800 border border-slate-700 hover:border-brand-gold text-xs md:text-sm px-3 py-2 rounded transition-all duration-300 active:scale-95 transform hover:-translate-y-0.5">Адвокатски панел</button>
-            <button onclick="switchView('admin-dashboard')" class="bg-amber-950/45 border border-amber-900/60 hover:border-brand-gold text-xs md:text-sm text-brand-gold px-3 py-2 rounded transition-all duration-300 active:scale-95 transform hover:-translate-y-0.5">⚖️ АДМИН</button>
+            <button onclick="switchView('client-bookings')" class="text-brand-gold font-medium border border-brand-gold/30 hover:border-brand-gold text-xs md:text-sm px-2.5 py-2 rounded transition-all duration-200 active:scale-95">❌ Моите часове <span id="nav-user-badge" class="text-[10px] bg-brand-gold/20 px-1 rounded hidden"></span></button>
+            <button onclick="switchView('lawyer-dashboard')" class="bg-slate-800 border border-slate-700 hover:border-brand-gold text-xs md:text-sm px-2.5 py-2 rounded transition-all duration-300 active:scale-95 transform hover:-translate-y-0.5">Адвокатски панел</button>
+            <button onclick="switchView('admin-dashboard')" class="bg-amber-950/45 border border-amber-900/60 hover:border-brand-gold text-xs md:text-sm text-brand-gold px-2.5 py-2 rounded transition-all duration-300 active:scale-95 transform hover:-translate-y-0.5">⚖️ АДМИН</button>
+            <button id="logout-btn" onclick="handleGlobalLogout()" class="bg-red-950/45 text-red-400 border border-red-900/50 text-xs px-2 py-2 rounded hidden hover:bg-red-900/40 transition">Изход</button>
         </div>
     </nav>
 
-    <!-- 1. НАЧАЛНА СТРАНИЦА (ОБНОВЕНА И ОБОГАТЕНА) -->
     <section id="landing-view" class="view-section">
-        <!-- Hero сектор -->
-        <div class="bg-brand-navy text-white py-24 px-6 text-center relative overflow-hidden">
+        <div class="bg-brand-navy text-white py-16 md:py-24 px-4 md:px-6 text-center relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-4xl mx-auto relative z-10">
-                <span class="text-brand-gold font-semibold uppercase tracking-widest text-sm bg-brand-gold/10 px-4 py-1.5 rounded-full animate-pulse">Дигитално правосъдие в България</span>
-                <h1 class="brand-serif text-4xl md:text-6xl font-bold mt-6 mb-6 leading-tight">Вашият казус изисква <br><span class="text-brand-gold">върховен професионализъм</span></h1>
-                <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">Бърз, прозрачен и сигурен достъп до правни експерти. Консултации на място или онлайн.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="switchView('search-zone')" class="bg-brand-gold hover:bg-yellow-600 text-slate-900 font-semibold px-8 py-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer">Намери адвокат сега</button>
-                    <button onclick="switchView('client-bookings')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer">Откажи / Прегледай час</button>
+                <span class="text-brand-gold font-semibold uppercase tracking-widest text-xs md:text-sm bg-brand-gold/10 px-4 py-1.5 rounded-full animate-pulse">Дигитално правосъдие в България</span>
+                <h1 class="brand-serif text-3xl md:text-6xl font-bold mt-6 mb-6 leading-tight">Вашият казус изисква <br><span class="text-brand-gold">върховен професионализъм</span></h1>
+                <p class="text-slate-400 text-sm md:text-xl max-w-2xl mx-auto mb-10">Бърз, прозрачен и сигурен достъп до правни експерти. Консултации на място или онлайн.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
+                    <button onclick="switchView('search-zone')" class="bg-brand-gold hover:bg-yellow-600 text-slate-900 font-semibold px-8 py-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer text-sm md:text-base">Намери адвокат сега</button>
+                    <button onclick="switchView('client-bookings')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer text-sm md:text-base">Откажи / Прегледай час</button>
                 </div>
             </div>
         </div>
 
-        <!-- Статистики -->
-        <div class="max-w-6xl mx-auto -mt-8 px-6 grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20">
+        <div class="max-w-6xl mx-auto -mt-8 px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative z-20">
             <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-brand-gold text-center transform hover:-translate-y-1 transition-all duration-300">
-                <h3 class="text-3xl font-bold text-brand-navy">1,200+</h3>
-                <p class="text-slate-500 mt-1 text-sm font-medium">Сертифицирани адвокати</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-navy">1,200+</h3>
+                <p class="text-slate-500 mt-1 text-xs md:text-sm font-medium">Сертифицирани адвокати</p>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-brand-gold text-center transform hover:-translate-y-1 transition-all duration-300">
-                <h3 class="text-3xl font-bold text-brand-navy">45,000+</h3>
-                <p class="text-slate-500 mt-1 text-sm font-medium">Успешни консултации</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-navy">45,000+</h3>
+                <p class="text-slate-500 mt-1 text-xs md:text-sm font-medium">Успешни консултации</p>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-brand-gold text-center transform hover:-translate-y-1 transition-all duration-300">
-                <h3 class="text-3xl font-bold text-brand-navy">99.2%</h3>
-                <p class="text-slate-500 mt-1 text-sm font-medium">Потребителско удовлетворение</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-navy">99.2%</h3>
+                <p class="text-slate-500 mt-1 text-xs md:text-sm font-medium">Потребителско удовлетворение</p>
             </div>
         </div>
 
-        <!-- СЕКЦИЯ: ПОПУЛЯРНИ НАПРАВЛЕНИЯ -->
-        <div class="max-w-6xl mx-auto px-6 py-20">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
             <div class="text-center mb-12">
-                <h2 class="brand-serif text-3xl font-bold text-brand-navy">Популярни правни сфери</h2>
-                <p class="text-slate-500 mt-2 text-sm">Изберете тясно специализиран експерт за Вашия специфичен казус</p>
+                <h2 class="brand-serif text-2xl md:text-3xl font-bold text-brand-navy">Популярни правни сфери</h2>
+                <p class="text-slate-500 mt-2 text-xs md:text-sm">Изберете тясно специализиран експерт за Вашия специфичен казус</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="document.getElementById('filter-specialty').value='Имотно право'; switchView('search-zone');" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
+                <div onclick="document.getElementById('filter-specialty').value='Имотно право'; switchView('search-zone');" class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
                     <div class="w-12 h-12 bg-amber-50 text-brand-gold rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy transition duration-300">🏢</div>
                     <h3 class="font-bold text-lg text-brand-navy mb-2 group-hover:text-brand-gold transition">Имотно право</h3>
                     <p class="text-slate-500 text-xs leading-relaxed">Покупко-продажби, нотариални актове, договори за наем, учредяване на право на строеж и имотни спорове.</p>
                 </div>
-                <div onclick="document.getElementById('filter-specialty').value='Семейно право'; switchView('search-zone');" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
+                <div onclick="document.getElementById('filter-specialty').value='Семейно право'; switchView('search-zone');" class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
                     <div class="w-12 h-12 bg-amber-50 text-brand-gold rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy transition duration-300">🤝</div>
                     <h3 class="font-bold text-lg text-brand-navy mb-2 group-hover:text-brand-gold transition">Семейно право</h3>
                     <p class="text-slate-500 text-xs leading-relaxed">Разводи по взаимно съгласие или исков ред, издръжки, родителски права и предбрачни договори.</p>
                 </div>
-                <div onclick="document.getElementById('filter-specialty').value='Наказателно право'; switchView('search-zone');" class="bg-white p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
+                <div onclick="document.getElementById('filter-specialty').value='Наказателно право'; switchView('search-zone');" class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200/60 hover:border-brand-gold hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group">
                     <div class="w-12 h-12 bg-amber-50 text-brand-gold rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy transition duration-300">⚖️</div>
                     <h3 class="font-bold text-lg text-brand-navy mb-2 group-hover:text-brand-gold transition">Наказателно право</h3>
                     <p class="text-slate-500 text-xs leading-relaxed">Защита при задържане, процесуално представителство пред съдебни органи и досъдебни производства.</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- СЕКЦИЯ: КАК РАБОТИ -->
-        <div class="bg-slate-900 text-white py-16 px-6 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto relative z-10">
-                <div class="text-center mb-12">
-                    <h2 class="brand-serif text-2xl md:text-3xl font-bold text-brand-gold">Консултация в 3 лесни стъпки</h2>
-                    <p class="text-slate-400 mt-2 text-sm">Спестете време, излишни разговори и тромава администрация</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-slate-800/50 border border-slate-700/40 p-6 rounded-xl text-center">
-                        <div class="w-12 h-12 bg-brand-gold text-slate-950 font-bold text-lg rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">1</div>
-                        <h4 class="font-bold text-base mb-2">Изберете специалист</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Филтрирайте по град и правна сфера. Разгледайте фиксираните хонорари и реалните отзиви.</p>
-                    </div>
-                    <div class="bg-slate-800/50 border border-slate-700/40 p-6 rounded-xl text-center">
-                        <div class="w-12 h-12 bg-brand-gold text-slate-950 font-bold text-lg rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">2</div>
-                        <h4 class="font-bold text-base mb-2">Запазете свободен слот</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Изберете удобен час, споделете резюме на Вашия казус и прикачете предварителни документи.</p>
-                    </div>
-                    <div class="bg-slate-800/50 border border-slate-700/40 p-6 rounded-xl text-center">
-                        <div class="w-12 h-12 bg-brand-gold text-slate-950 font-bold text-lg rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">3</div>
-                        <h4 class="font-bold text-base mb-2">Проведете срещата</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Срещнете се в кантората или онлайн. Имате право на пълна клиентска отмяна преди часа.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- СЕКЦИЯ: ЗАЩО LEXDOC & ОТЗИВ -->
-        <div class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="text-brand-gold font-bold text-xs uppercase tracking-wider block mb-2">Технологично предимство</span>
-                <h2 class="brand-serif text-3xl font-bold text-brand-navy mb-6">Новият стандарт в българското право</h2>
-                <div class="space-y-4">
-                    <div class="flex gap-3">
-                        <div class="text-emerald-600 text-lg font-bold">✓</div>
-                        <div>
-                            <h4 class="font-bold text-brand-navy text-sm">Фиксирани и прозрачни цени</h4>
-                            <p class="text-slate-500 text-xs mt-0.5">Плащате точно толкова, колкото виждате при резервация. Без скрити такси, допълнителни усложнения или изненади на място.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="text-emerald-600 text-lg font-bold">✓</div>
-                        <div>
-                            <h4 class="font-bold text-brand-navy text-sm">Гарантирана верификация</h4>
-                            <p class="text-slate-500 text-xs mt-0.5">Всеки профил на юрист преминава през задължителна ръчна проверка на пълномощията и съответната Адвокатска колегия.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="text-emerald-600 text-lg font-bold">✓</div>
-                        <div>
-                            <h4 class="font-bold text-brand-navy text-sm">Защитена обработка на документи</h4>
-                            <p class="text-slate-500 text-xs mt-0.5">Прикачените файлове с доказателства по казуса са изолирани и достъпни единствено за избрания от Вас адвокат.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-gradient-to-tr from-brand-navy to-slate-800 p-8 rounded-2xl text-white relative shadow-xl overflow-hidden min-h-[260px] flex flex-col justify-between border border-slate-700">
-                <div class="absolute -right-12 -bottom-12 w-40 h-40 bg-brand-gold/5 rounded-full blur-2xl"></div>
-                <div>
-                    <span class="text-brand-gold text-4xl brand-serif font-bold block leading-none -mb-2">“</span>
-                    <p class="text-slate-300 italic text-sm leading-relaxed mb-6">Платформата промени изцяло начина, по който организираме защитата по имотните ни сделки в Пловдив. Всичко се случва за минути, без безкрайно чакане пред кантори.</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-brand-gold/15 text-brand-gold rounded-full flex items-center justify-center font-bold text-xs border border-brand-gold/20">ИД</div>
+    <section id="search-zone-view" class="view-section hidden max-w-6xl mx-auto py-12 px-4 md:px-6">
+        
+        <div id="search-zone-auth-wrapper" class="hidden space-y-6">
+            <div id="search-client-auth-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md border border-slate-200">
+                <h3 class="brand-serif text-xl font-bold text-brand-navy mb-2 text-center">Регистрация за клиенти</h3>
+                <p class="text-xs text-slate-500 text-center mb-6">Създайте профил, за да отключите графика и да разгледате свободните часове.</p>
+                <form onsubmit="handleClientRegisterSearch(event)" class="space-y-4">
                     <div>
-                        <h5 class="font-bold text-xs text-white">Иван Димитров</h5>
-                        <p class="text-[11px] text-slate-400">Предприемач, гр. Пловдив</p>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Потребителско име или Ел. поща</label>
+                        <input type="text" id="search-client-username-input" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
                     </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                        <input type="password" id="search-client-password-input" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <button type="submit" class="w-full bg-brand-navy text-white font-bold py-2.5 rounded text-sm hover:bg-slate-800 transition active:scale-95">Създай профил и виж часовете</button>
+                </form>
+                <div class="text-center mt-4">
+                    <button onclick="toggleSearchClientLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Вече имате профил? Влезте тук</button>
+                </div>
+            </div>
+
+            <div id="search-client-login-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md border border-slate-200 hidden">
+                <h3 class="brand-serif text-xl font-bold text-brand-navy mb-2 text-center">Вход за клиенти</h3>
+                <p class="text-xs text-slate-500 text-center mb-6">Въведете Вашите данни, за да заредите интерактивния съдебен график.</p>
+                <form onsubmit="handleClientLoginSearch(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Потребителско име или Ел. поща</label>
+                        <input type="text" id="search-client-login-username" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                        <input type="password" id="search-client-login-password" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <button type="submit" class="w-full bg-brand-gold text-slate-900 font-bold py-2.5 rounded text-sm hover:bg-yellow-600 transition active:scale-95">Влез в профила</button>
+                </form>
+                <div class="text-center mt-4">
+                    <button onclick="toggleSearchClientLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Нямате профил? Регистрирайте се</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- 2. ПУБЛИЧНА ЗОНА ЗА ТЪРСЕНЕ И ЗАПИСВАНЕ -->
-    <section id="search-zone-view" class="view-section hidden max-w-6xl mx-auto py-12 px-6">
-        <!-- Филтри -->
-        <div class="bg-white p-6 rounded-xl shadow-md mb-8 flex flex-col md:flex-row gap-4 items-end border border-slate-100">
-            <div class="flex-1 w-full">
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Град</label>
-                <select id="filter-city" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 focus:outline-none focus:border-brand-gold transition cursor-pointer">
-                    <option value="Всички">Всички градове</option>
-                    <option value="Пловдив">Пловдив</option>
-                    <option value="София">София</option>
-                    <option value="Варна">Варна</option>
-                </select>
+        <div id="search-zone-content" class="hidden">
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-md mb-8 flex flex-col md:flex-row gap-4 items-end border border-slate-100">
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Град</label>
+                    <select id="filter-city" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 focus:outline-none focus:border-brand-gold transition cursor-pointer text-sm">
+                        <option value="Всички">Всички градове</option>
+                        <option value="Пловдив">Пловдив</option>
+                        <option value="София">София</option>
+                        <option value="Варна">Варна</option>
+                    </select>
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Правна Сфера</label>
+                    <select id="filter-specialty" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 focus:outline-none focus:border-brand-gold transition cursor-pointer text-sm">
+                        <option value="Всички">Всички сфери</option>
+                        <option value="Имотно право">Имотно право</option>
+                        <option value="Семейно право">Семейно право</option>
+                        <option value="Наказателно право">Наказателно право</option>
+                    </select>
+                </div>
+                <button onclick="renderPublicLawyers()" class="w-full md:w-auto bg-brand-navy hover:bg-slate-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-md active:scale-95 cursor-pointer text-sm">Филтрирай</button>
             </div>
-            <div class="flex-1 w-full">
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Правна Сфера</label>
-                <select id="filter-specialty" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 focus:outline-none focus:border-brand-gold transition cursor-pointer">
-                    <option value="Всички">Всички сфери</option>
-                    <option value="Имотно право">Имотно право</option>
-                    <option value="Семейно право">Семейно право</option>
-                    <option value="Наказателно право">Наказателно право</option>
-                </select>
-            </div>
-            <button onclick="renderPublicLawyers()" class="w-full md:w-auto bg-brand-navy hover:bg-slate-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-md active:scale-95 cursor-pointer">Филтрирай</button>
-        </div>
 
-        <!-- Резултати -->
-        <h3 class="text-xl font-bold text-brand-navy mb-6">Списък на достъпните правни експерти:</h3>
-        <div id="public-lawyers-list" class="grid grid-cols-1 gap-6">
-            <!-- Динамично съдържание -->
+            <h3 class="text-xl font-bold text-brand-navy mb-6">Списък на достъпните правни експерти:</h3>
+            <div id="public-lawyers-list" class="grid grid-cols-1 gap-6">
+                </div>
         </div>
     </section>
 
-    <!-- МОДАЛЕН ПРОЗОРЕЦ ЗА ЗАПИСВАНЕ -->
     <div id="booking-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm transition-all duration-300">
         <div class="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 transition-all duration-300" id="modal-container">
             <div class="bg-brand-navy text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold brand-serif text-lg">Запазване на час за <span id="modal-time" class="text-brand-gold"></span></h3>
+                <h3 class="font-bold brand-serif text-base md:text-lg">Запазване на час за <span id="modal-time" class="text-brand-gold"></span></h3>
                 <button onclick="closeBookingModal()" class="text-slate-400 hover:text-white text-2xl font-bold transition active:scale-75">&times;</button>
             </div>
-            <form onsubmit="confirmBooking(event)" class="p-6 space-y-4">
+            <form id="booking-form" onsubmit="confirmBooking(event)" class="p-4 md:p-6 space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Вашите имена</label>
                     <input type="text" id="modal-client-name" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold transition">
@@ -232,128 +192,305 @@
         </div>
     </div>
 
-    <!-- 2.5 КЛИЕНТСКА СТРАНИЦА ЗА ПРЕГЛЕД И ОТМЯНА -->
-    <section id="client-bookings-view" class="view-section hidden max-w-4xl mx-auto py-12 px-6">
-        <div class="border-b border-slate-200 pb-4 mb-8">
-            <h2 class="brand-serif text-2xl font-bold text-brand-navy">❌ Управление на моите резервации</h2>
-            <p class="text-sm text-slate-500">Тук можете да прегледате активните си консултации или да анулирате час.</p>
+    <section id="client-bookings-view" class="view-section hidden max-w-4xl mx-auto py-12 px-4 md:px-6">
+        <div id="client-auth-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md border border-slate-200 hidden">
+            <h3 class="brand-serif text-xl font-bold text-brand-navy mb-2 text-center">Регистрация за клиенти</h3>
+            <p class="text-xs text-slate-500 text-center mb-6">Създайте профил, за да виждате и управлявате часовете си по всяко време.</p>
+            <form onsubmit="handleClientRegister(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Потребителско име или Ел. поща</label>
+                    <input type="text" id="client-username-input" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                    <input type="password" id="client-password-input" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                </div>
+                <button type="submit" class="w-full bg-brand-navy text-white font-bold py-2.5 rounded text-sm hover:bg-slate-800 transition active:scale-95">Създай профил</button>
+            </form>
+            <div class="text-center mt-4">
+                <button onclick="toggleClientLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Вече имате профил? Влезте тук</button>
+            </div>
         </div>
 
-        <div id="client-bookings-container" class="space-y-4">
-            <!-- Динамични поръчки -->
+        <div id="client-login-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md border border-slate-200 hidden">
+            <h3 class="brand-serif text-xl font-bold text-brand-navy mb-2 text-center">Вход за клиенти</h3>
+            <p class="text-xs text-slate-500 text-center mb-6">Въведете Вашите данни, за да заредите запазените си консултации.</p>
+            <form onsubmit="handleClientLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Потребителско име или Ел. поща</label>
+                    <input type="text" id="client-login-username" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                    <input type="password" id="client-login-password" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                </div>
+                <button type="submit" class="w-full bg-brand-gold text-slate-900 font-bold py-2.5 rounded text-sm hover:bg-yellow-600 transition active:scale-95">Влез в профила</button>
+            </form>
+            <div class="text-center mt-4">
+                <button onclick="toggleClientLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Нямате профил? Регистрирайте се</button>
+            </div>
+        </div>
+
+        <div id="client-bookings-content" class="hidden">
+            <div class="border-b border-slate-200 pb-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                    <h2 class="brand-serif text-xl md:text-2xl font-bold text-brand-navy">❌ Управление на моите резервации</h2>
+                    <p class="text-xs md:text-sm text-slate-500">Здравейте, <span id="client-profile-name" class="font-bold text-brand-gold"></span>. Тук се пазят активните Ви консултации.</p>
+                </div>
+            </div>
+            <div id="client-bookings-container" class="space-y-4">
+                </div>
         </div>
     </section>
 
-    <!-- 3. АДВОКАТСКИ ПАНЕЛ -->
-    <section id="lawyer-dashboard-view" class="view-section hidden max-w-6xl mx-auto py-12 px-6">
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-200 pb-6 mb-8">
-            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                <div>
-                    <h2 class="brand-serif text-2xl font-bold text-brand-navy">Личен Кабинет</h2>
-                    <p class="text-sm text-slate-500">Управление на дневния график в реално време.</p>
+    <section id="lawyer-dashboard-view" class="view-section hidden max-w-6xl mx-auto py-12 px-4 md:px-6">
+        <div id="lawyer-auth-box" class="hidden space-y-12">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="brand-serif text-2xl md:text-4xl font-bold text-brand-navy">Станете част от LexDoc</h2>
+                <p class="text-slate-500 mt-2 text-sm md:text-base">Изберете професионален план за достъп до платформата, получавайте клиенти и управлявайте лесно графика си.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-800">Стартов План</h4>
+                        <div class="my-4"><span class="text-3xl font-bold text-brand-navy">29 €</span> / месец</div>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-6">Подходящ за млади юристи. Включва базов профил, до 3 active слота на ден и стандартно класиране в търсачката.</p>
+                    </div>
+                    <button onclick="selectLawyerPlan('Стартов План', 29)" class="w-full bg-slate-100 hover:bg-brand-navy hover:text-white text-slate-800 font-semibold py-2 rounded text-xs transition active:scale-95">Избери Стартов</button>
                 </div>
-                <div class="mt-2 sm:mt-0">
-                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Избор на профил:</label>
-                    <select id="dashboard-lawyer-selector" onchange="changeActiveDashboardLawyer(this.value)" class="bg-white border border-slate-300 rounded-lg p-2 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-gold transition shadow-sm cursor-pointer">
-                        <!-- Динамично попълване -->
-                    </select>
+                <div class="bg-white p-6 rounded-xl shadow-md border-2 border-brand-gold relative flex flex-col justify-between">
+                    <span class="absolute -top-3 right-4 bg-brand-gold text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Най-популярни</span>
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-800">Професионален</h4>
+                        <div class="my-4"><span class="text-3xl font-bold text-brand-navy">59 €</span> / месец</div>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-6">Включва неограничен брой слотове, приоритетно показване при търсене по градове и пълна статистика за приходите.</p>
+                    </div>
+                    <button onclick="selectLawyerPlan('Професионален План', 59)" class="w-full bg-brand-gold hover:bg-yellow-600 text-slate-900 font-bold py-2 rounded text-xs transition active:scale-95">Избери Професионален</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-800">Премиум Кантора</h4>
+                        <div class="my-4"><span class="text-3xl font-bold text-brand-navy">99 €</span> / месец</div>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-6">За брандирани кантори или асоциации. Включва значка "Топ Експерт", споделен график за съдружници и 0% допълнителни такси.</p>
+                    </div>
+                    <button onclick="selectLawyerPlan('Премиум Кантора', 99)" class="w-full bg-slate-100 hover:bg-brand-navy hover:text-white text-slate-800 font-semibold py-2 rounded text-xs transition active:scale-95">Избери Премиум</button>
                 </div>
             </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-4 items-center">
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Цена за консултация (€)</label>
-                    <input type="number" id="lawyer-price-input" onchange="updateLawyerPriceFromDashboard(this.value)" class="w-24 border border-slate-300 rounded p-1 text-sm text-center font-bold text-brand-navy focus:border-brand-gold">
+
+            <div id="lawyer-payment-form-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 hidden">
+                <div class="text-center mb-6">
+                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-bold">Избран: <span id="selected-plan-label"></span></span>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Метод на достъп</label>
-                    <select class="text-sm border border-slate-300 rounded p-1 bg-slate-50 font-semibold text-slate-700 cursor-pointer">
-                        <option>Хибридно (място/онлайн)</option>
-                        <option>Само на място</option>
-                        <option>Само Видео консултации</option>
-                    </select>
+                <form onsubmit="handleLawyerRegisterAndPay(event)" class="space-y-4">
+                    <div class="border-b border-slate-100 pb-3 mb-2"><h4 class="font-bold text-sm text-brand-navy">1. Професионален профил</h4></div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Име и Фамилия (адв. ...)</label>
+                        <input type="text" id="lawyer-reg-name" required placeholder="адв. Иван Иванов" class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Град</label>
+                            <select id="lawyer-reg-city" class="w-full border border-slate-300 rounded p-2 text-sm bg-slate-50">
+                                <option>Пловдив</option>
+                                <option>София</option>
+                                <option>Варна</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Сфера</label>
+                            <select id="lawyer-reg-specialty" class="w-full border border-slate-300 rounded p-2 text-sm bg-slate-50">
+                                <option>Имотно право</option>
+                                <option>Семейно право</option>
+                                <option>Наказателно право</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Адвокатска колегия</label>
+                        <input type="text" id="lawyer-reg-college" required placeholder="Адвокатска колегия — Пловдив" class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола за достъп до кабинета</label>
+                        <input type="password" id="lawyer-reg-password" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+
+                    <div class="border-b border-slate-100 pb-3 pt-2 mb-2"><h4 class="font-bold text-sm text-brand-navy">2. Детайли за плащане на абонамента</h4></div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Номер на банкова карта</label>
+                        <input type="text" required placeholder="4000 1234 5678 9010" class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" required placeholder="ММ/ГГ" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        <input type="password" required placeholder="CVC" class="w-full border border-slate-300 rounded p-2 text-sm">
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded text-sm transition shadow active:scale-95 mt-4">Плати сигурно и активирай профила</button>
+                </form>
+                <div class="text-center mt-4">
+                    <button onclick="toggleLawyerDirectLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Имате съществуващ профил? Влезте тук</button>
+                </div>
+            </div>
+
+            <div id="lawyer-direct-login-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 hidden">
+                <h3 class="brand-serif text-lg font-bold text-brand-navy mb-4 text-center">Вход за активни адвокати</h3>
+                <form onsubmit="handleLawyerDirectLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Име на адвокат</label>
+                        <input type="text" id="lawyer-login-name" required placeholder="адв. Анастас Новаков" class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                        <input type="password" id="lawyer-login-password" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <button type="submit" class="w-full bg-brand-navy text-white font-bold py-2.5 rounded text-sm transition">Влез в кабинета</button>
+                </form>
+                <div class="text-center mt-4">
+                    <button onclick="toggleLawyerDirectLogin()" class="text-xs text-brand-navy underline hover:text-slate-700">Обратно към избор на абонаментен план</button>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-4">
-                <h3 class="font-bold text-lg text-brand-navy mb-2 flex items-center gap-2">📂 График за управление на слотове</h3>
-                <div id="dashboard-slots-container" class="space-y-4">
-                    <!-- Зарежда се динамично спрямо адвоката -->
+        <div id="lawyer-dashboard-content" class="hidden">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-200 pb-6 mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div>
+                        <h2 class="brand-serif text-2xl font-bold text-brand-navy">Личен Кабинет</h2>
+                        <p class="text-xs md:text-sm text-slate-500">Управление на дневния график в реално време.</p>
+                    </div>
+                    <div class="mt-2 sm:mt-0">
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Избор на профил:</label>
+                        <select id="dashboard-lawyer-selector" onchange="changeActiveDashboardLawyer(this.value)" class="bg-white border border-slate-300 rounded-lg p-2 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-gold transition shadow-sm cursor-pointer">
+                            </select>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-4 items-center w-full lg:w-auto">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Цена за консултация (€)</label>
+                        <input type="number" id="lawyer-price-input" onchange="updateLawyerPriceFromDashboard(this.value)" class="w-24 border border-slate-300 rounded p-1 text-sm text-center font-bold text-brand-navy focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Метод на достъп</label>
+                        <select class="text-sm border border-slate-300 rounded p-1 bg-slate-50 font-semibold text-slate-700 cursor-pointer">
+                            <option>Хибридно (място/онлайн)</option>
+                            <option>Само на място</option>
+                            <option>Само Видео консултации</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="bg-brand-navy text-white p-6 rounded-xl shadow-md space-y-4 h-fit sticky top-24">
-                <h3 class="brand-serif text-lg font-bold text-brand-gold">Финансово състояние (Днес)</h3>
-                <div class="border-t border-slate-700 pt-3">
-                    <p class="text-xs text-slate-400">Спечелен / Очакван доход</p>
-                    <p id="expected-income" class="text-3xl font-bold text-brand-gold">0 €</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <h3 class="font-bold text-lg text-brand-navy mb-2 flex items-center gap-2">📂 График за управление на слотове</h3>
+                    <div id="dashboard-slots-container" class="space-y-4">
+                        </div>
                 </div>
-                <div class="border-t border-slate-700 pt-3">
-                    <p class="text-xs text-slate-400">Брой активни резервации (изчакващи)</p>
-                    <p id="active-bookings-count" class="text-2xl font-bold">0 часове</p>
+
+                <div class="bg-brand-navy text-white p-6 rounded-xl shadow-md space-y-4 h-fit sticky top-24">
+                    <h3 class="brand-serif text-lg font-bold text-brand-gold">Финансово състояние (Днес)</h3>
+                    <div class="border-t border-slate-700 pt-3">
+                        <p class="text-xs text-slate-400">Спечелен / Очакван доход</p>
+                        <p id="expected-income" class="text-3xl font-bold text-brand-gold">0 €</p>
+                    </div>
+                    <div class="border-t border-slate-700 pt-3">
+                        <p class="text-xs text-slate-400">Брой активни резервации (изчакващи)</p>
+                        <p id="active-bookings-count" class="text-2xl font-bold">0 часове</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. АДМИНИСТРАТИВЕН ПАНЕЛ -->
-    <section id="admin-dashboard-view" class="view-section hidden max-w-6xl mx-auto py-12 px-6">
-        <div class="border-b border-slate-200 pb-6 mb-8">
-            <h2 class="brand-serif text-2xl font-bold text-slate-900">⚖️ Глобална Администрация</h2>
-            <p class="text-sm text-slate-500">Пълен оперативен контрол над таксите, верификацията и статуса на потребителите.</p>
+    <section id="admin-dashboard-view" class="view-section hidden max-w-6xl mx-auto py-12 px-4 md:px-6">
+        <div id="admin-auth-box" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md border border-slate-200 hidden">
+            <h3 class="brand-serif text-xl font-bold text-brand-navy mb-4 text-center">Системен вход за Администратор</h3>
+            <form onsubmit="handleAdminAuth(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Потребителско име</label>
+                    <input type="text" id="admin-username" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Парола</label>
+                    <input type="password" id="admin-password" required class="w-full border border-slate-300 rounded p-2 text-sm focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-amber-950 text-brand-gold font-bold py-2.5 rounded text-sm hover:bg-slate-800 transition">Влез в централа</button>
+            </form>
         </div>
 
-        <!-- Системни Метрики -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 transform hover:scale-[1.02] transition duration-300">
-                <span class="text-xs font-bold text-slate-400 uppercase">Системен оборот</span>
-                <p id="admin-turnover" class="text-2xl font-bold text-brand-navy mt-1">12,450 €</p>
+        <div id="admin-dashboard-content" class="hidden">
+            <div class="border-b border-slate-200 pb-6 mb-8">
+                <h2 class="brand-serif text-2xl font-bold text-slate-900">⚖️ Глобална Администрация</h2>
+                <p class="text-sm text-slate-500">Пълен оперативен контрол над таксите, верификацията и статуса на потребителите.</p>
             </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 transform hover:scale-[1.02] transition duration-300">
-                <span class="text-xs font-bold text-slate-400 uppercase">Приход от Платформата (10%)</span>
-                <p id="admin-platform-fee" class="text-2xl font-bold text-emerald-700 mt-1">1,245 €</p>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 transform hover:scale-[1.02] transition duration-300">
-                <span class="text-xs font-bold text-slate-400 uppercase">Общ брой специалисти</span>
-                <p id="admin-total-lawyers" class="text-2xl font-bold text-amber-600 mt-1">0</p>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 transform hover:scale-[1.02] transition duration-300">
-                <span class="text-xs font-bold text-slate-400 uppercase">Репортове / Сигнали</span>
-                <p class="text-2xl font-bold text-emerald-600 mt-1">0 active</p>
-            </div>
-        </div>
 
-        <!-- Таблица -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                <h3 class="font-bold text-brand-navy">Регистър на адвокатските субекти</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Системен оборот</span>
+                    <p id="admin-turnover" class="text-2xl font-bold text-brand-navy mt-1">12,450 €</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Приход от Платформата (10%)</span>
+                    <p id="admin-platform-fee" class="text-2xl font-bold text-emerald-700 mt-1">1,245 €</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Общ брой специалисти</span>
+                    <p id="admin-total-lawyers" class="text-2xl font-bold text-amber-600 mt-1">0</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Репортове / Сигнали</span>
+                    <p class="text-2xl font-bold text-emerald-600 mt-1">0 active</p>
+                </div>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-600 uppercase text-xs border-b border-slate-200">
-                            <th class="p-4">Адвокат</th>
-                            <th class="p-4">Регион</th>
-                            <th class="p-4">Сфера</th>
-                            <th class="p-4">Текуща Цена</th>
-                            <th class="p-4">Текущ Статус</th>
-                            <th class="p-4 text-center">Контролни Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-lawyers-table-body" class="divide-y divide-slate-100">
-                        <!-- Запълва се динамично -->
-                    </tbody>
-                </table>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+                <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                    <h3 class="font-bold text-brand-navy">Регистър на адвокатските субекти</h3>
+                </div>
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left text-sm border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 uppercase text-xs border-b border-slate-200">
+                                <th class="p-4">Адвокат</th>
+                                <th class="p-4">Регион</th>
+                                <th class="p-4">Сфера</th>
+                                <th class="p-4">Текуща Цена</th>
+                                <th class="p-4">Текущ Статус</th>
+                                <th class="p-4 text-center">Контролни Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-lawyers-table-body" class="divide-y divide-slate-100">
+                            </tbody>
+                    </table>
+                </div>
             </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                    <h3 class="font-bold text-brand-navy">Регистър на потребителите (Клиенти)</h3>
+                </div>
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left text-sm border-collapse min-w-[400px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 uppercase text-xs border-b border-slate-200">
+                                <th class="p-4">Потребителско име / Ел. поща</th>
+                                <th class="p-4 text-center">Контролни Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-clients-table-body" class="divide-y divide-slate-100">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- СИСТЕМЕН JAVASCRIPT -->
     <script>
         const BASE_SYSTEM_TURNOVER = 12450;
 
-        let lawyers = [
+        // Тестови адвокати (by default)
+        const DEFAULT_LAWYERS = [
             {
                 id: "lawyer_1",
                 name: "адв. Анастас Новаков",
@@ -364,10 +501,12 @@
                 reviews: 124,
                 price: 60,
                 status: "Верифициран",
+                password: "123",
+                earnedIncome: 0,
                 slots: {
-                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' }
+                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' }
                 }
             },
             {
@@ -380,40 +519,81 @@
                 reviews: 98,
                 price: 75,
                 status: "Верифициран",
+                password: "123",
+                earnedIncome: 0,
                 slots: {
-                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' }
-                }
-            },
-            {
-                id: "lawyer_3",
-                name: "адв. Димитър Желев",
-                college: "Адвокатска колегия — Варна",
-                city: "Варна",
-                specialty: "Наказателно право",
-                rating: "4.7",
-                reviews: 54,
-                price: 90,
-                status: "Изчаква проверка",
-                slots: {
-                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' },
-                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '' }
+                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' }
                 }
             }
         ];
 
+        // Декларация на реактивни хранилища (LocalStorage)
+        let lawyers = JSON.parse(localStorage.getItem('lexdoc_lawyers')) || DEFAULT_LAWYERS;
+        let clients = JSON.parse(localStorage.getItem('lexdoc_clients')) || [];
+        
+        // Активни сесии
+        let currentUser = localStorage.getItem('lexdoc_session_user') || null; 
+        let currentLawyerId = localStorage.getItem('lexdoc_session_lawyer') || null;
+        let isAdminLoggedIn = sessionStorage.getItem('lexdoc_session_admin') === 'true';
+
         let selectedLawyerIdForBooking = null;
         let selectedTimeForBooking = null;
-        let activeDashboardLawyerId = "lawyer_1";
+        let activeDashboardLawyerId = currentLawyerId || "lawyer_1";
+        let selectedPlanMetadata = { name: '', price: 0 };
 
         window.onload = function() {
+            saveState();
+            updateNavigationBadges();
             renderPublicLawyers(); 
             buildDashboardLawyerOptions();
             renderLawyerDashboard();
             renderAdminTable();
         };
+
+        function saveState() {
+            localStorage.setItem('lexdoc_lawyers', JSON.stringify(lawyers));
+            localStorage.setItem('lexdoc_clients', JSON.stringify(clients));
+        }
+
+        function updateNavigationBadges() {
+            const userBadge = document.getElementById('nav-user-badge');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            if (currentUser) {
+                userBadge.innerText = currentUser;
+                userBadge.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else if (currentLawyerId) {
+                let lawyer = lawyers.find(l => l.id === currentLawyerId);
+                userBadge.innerText = lawyer ? lawyer.name : 'Адвокат';
+                userBadge.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else if (isAdminLoggedIn) {
+                userBadge.innerText = 'Админ';
+                userBadge.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+            } else {
+                userBadge.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        function handleGlobalLogout() {
+            currentUser = null;
+            currentLawyerId = null;
+            isAdminLoggedIn = false;
+            localStorage.removeItem('lexdoc_session_user');
+            localStorage.removeItem('lexdoc_session_lawyer');
+            sessionStorage.removeItem('lexdoc_session_admin');
+            
+            updateNavigationBadges();
+            switchView('landing');
+            renderLawyerDashboard();
+            renderPublicLawyers();
+            alert('Успешно излязохте от профила.');
+        }
 
         function switchView(viewName) {
             document.querySelectorAll('.view-section').forEach(view => view.classList.add('hidden'));
@@ -422,20 +602,248 @@
                 document.getElementById('landing-view').classList.remove('hidden');
             } else if (viewName === 'search-zone') {
                 document.getElementById('search-zone-view').classList.remove('hidden');
-                renderPublicLawyers(); 
+                // НОВО: Директна проверка за регистрация/вход
+                if (!currentUser) {
+                    document.getElementById('search-zone-auth-wrapper').classList.remove('hidden');
+                    document.getElementById('search-zone-content').classList.add('hidden');
+                } else {
+                    document.getElementById('search-zone-auth-wrapper').classList.add('hidden');
+                    document.getElementById('search-zone-content').classList.remove('hidden');
+                    renderPublicLawyers(); 
+                }
             } else if (viewName === 'client-bookings') {
                 document.getElementById('client-bookings-view').classList.remove('hidden');
-                renderClientBookings();
+                if (!currentUser) {
+                    document.getElementById('client-auth-box').classList.remove('hidden');
+                    document.getElementById('client-login-box').classList.add('hidden');
+                    document.getElementById('client-bookings-content').classList.add('hidden');
+                } else {
+                    document.getElementById('client-auth-box').classList.add('hidden');
+                    document.getElementById('client-login-box').classList.add('hidden');
+                    document.getElementById('client-bookings-content').classList.remove('hidden');
+                    document.getElementById('client-profile-name').innerText = currentUser;
+                    renderClientBookings();
+                }
             } else if (viewName === 'lawyer-dashboard') {
                 document.getElementById('lawyer-dashboard-view').classList.remove('hidden');
-                renderLawyerDashboard();
+                if (!currentLawyerId) {
+                    document.getElementById('lawyer-auth-box').classList.remove('hidden');
+                    document.getElementById('lawyer-dashboard-content').classList.add('hidden');
+                    document.getElementById('lawyer-direct-login-box').classList.add('hidden');
+                } else {
+                    document.getElementById('lawyer-auth-box').classList.add('hidden');
+                    document.getElementById('lawyer-dashboard-content').classList.remove('hidden');
+                    activeDashboardLawyerId = currentLawyerId;
+                    buildDashboardLawyerOptions();
+                    renderLawyerDashboard();
+                }
             } else if (viewName === 'admin-dashboard') {
                 document.getElementById('admin-dashboard-view').classList.remove('hidden');
-                renderAdminTable();
+                if (!isAdminLoggedIn) {
+                    document.getElementById('admin-auth-box').classList.remove('hidden');
+                    document.getElementById('admin-dashboard-content').classList.add('hidden');
+                } else {
+                    document.getElementById('admin-auth-box').classList.add('hidden');
+                    document.getElementById('admin-dashboard-content').classList.remove('hidden');
+                    renderAdminTable();
+                }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // АУТЕНТИКАЦИЯ ЗА ЗОНАТА ЗА ТЪРСЕНЕ (НОВО)
+        function toggleSearchClientLogin() {
+            const regBox = document.getElementById('search-client-auth-box');
+            const loginBox = document.getElementById('search-client-login-box');
+            if(loginBox.classList.contains('hidden')) {
+                loginBox.classList.remove('hidden');
+                regBox.classList.add('hidden');
+            } else {
+                loginBox.classList.add('hidden');
+                regBox.classList.remove('hidden');
+            }
+        }
+
+        function handleClientRegisterSearch(event) {
+            event.preventDefault();
+            const username = document.getElementById('search-client-username-input').value.trim();
+            const password = document.getElementById('search-client-password-input').value;
+
+            if(clients.some(c => c.username.toLowerCase() === username.toLowerCase())) {
+                alert('Това потребителско име вече е заето!');
+                return;
+            }
+            clients.push({ username: username, password: password });
+            saveState();
+            currentUser = username;
+            localStorage.setItem('lexdoc_session_user', currentUser);
+            updateNavigationBadges();
+            event.target.reset();
+            switchView('search-zone');
+            alert('Профилът Ви беше създаден успешно!');
+        }
+
+        function handleClientLoginSearch(event) {
+            event.preventDefault();
+            const username = document.getElementById('search-client-login-username').value.trim();
+            const password = document.getElementById('search-client-login-password').value;
+
+            let found = clients.find(c => c.username.toLowerCase() === username.toLowerCase() && c.password === password);
+            if(found) {
+                currentUser = found.username;
+                localStorage.setItem('lexdoc_session_user', currentUser);
+                updateNavigationBadges();
+                event.target.reset();
+                switchView('search-zone');
+            } else {
+                alert('Грешно потребителско име или парола!');
+            }
+        }
+
+        // ПОТРЕБИТЕЛ (КЛИЕНТ) — РЕГИСТРАЦИЯ И ВХОД ОТ СЕКЦИЯ МОИТЕ ЧАСОВЕ
+        function toggleClientLogin() {
+            const regBox = document.getElementById('client-auth-box');
+            const loginBox = document.getElementById('client-login-box');
+            if(loginBox.classList.contains('hidden')) {
+                loginBox.classList.remove('hidden');
+                regBox.classList.add('hidden');
+            } else {
+                loginBox.classList.add('hidden');
+                regBox.classList.remove('hidden');
+            }
+        }
+
+        function handleClientRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('client-username-input').value.trim();
+            const password = document.getElementById('client-password-input').value;
+
+            if(clients.some(c => c.username.toLowerCase() === username.toLowerCase())) {
+                alert('Това потребителско име вече е заето!');
+                return;
+            }
+            clients.push({ username: username, password: password });
+            saveState();
+            currentUser = username;
+            localStorage.setItem('lexdoc_session_user', currentUser);
+            updateNavigationBadges();
+            event.target.reset();
+            switchView('client-bookings');
+            alert('Профилът Ви беше създаден успешно!');
+        }
+
+        function handleClientLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('client-login-username').value.trim();
+            const password = document.getElementById('client-login-password').value;
+
+            let found = clients.find(c => c.username.toLowerCase() === username.toLowerCase() && c.password === password);
+            if(found) {
+                currentUser = found.username;
+                localStorage.setItem('lexdoc_session_user', currentUser);
+                updateNavigationBadges();
+                event.target.reset();
+                switchView('client-bookings');
+            } else {
+                alert('Грешно потребителско име или парола!');
+            }
+        }
+
+        // АДМИН АУТЕНТИКАЦИЯ
+        function handleAdminAuth(event) {
+            event.preventDefault();
+            const user = document.getElementById('admin-username').value.trim();
+            const pass = document.getElementById('admin-password').value.trim();
+
+            if (user === 'admin' && pass === 'admin') {
+                isAdminLoggedIn = true;
+                sessionStorage.setItem('lexdoc_session_admin', 'true');
+                updateNavigationBadges();
+                switchView('admin-dashboard');
+            } else {
+                alert('Грешно потребителско име или парола!');
+            }
+        }
+
+        // АДВОКАТ СЕКЦИЯ: ИЗБОР НА ПЛАН И ПЛАЩАНЕ
+        function selectLawyerPlan(planName, price) {
+            selectedPlanMetadata.name = planName;
+            selectedPlanMetadata.price = price;
+            document.getElementById('selected-plan-label').innerText = `${planName} (${price} €)`;
+            document.getElementById('lawyer-payment-form-box').classList.remove('hidden');
+            document.getElementById('lawyer-direct-login-box').classList.add('hidden');
+            document.getElementById('lawyer-payment-form-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleLawyerDirectLogin() {
+            const loginBox = document.getElementById('lawyer-direct-login-box');
+            const paymentBox = document.getElementById('lawyer-payment-form-box');
+            if(loginBox.classList.contains('hidden')) {
+                loginBox.classList.remove('hidden');
+                paymentBox.classList.add('hidden');
+            } else {
+                loginBox.classList.add('hidden');
+            }
+        }
+
+        function handleLawyerRegisterAndPay(event) {
+            event.preventDefault();
+            const name = document.getElementById('lawyer-reg-name').value.trim();
+            const city = document.getElementById('lawyer-reg-city').value;
+            const specialty = document.getElementById('lawyer-reg-specialty').value;
+            const college = document.getElementById('lawyer-reg-college').value.trim();
+            const password = document.getElementById('lawyer-reg-password').value;
+
+            const newId = `lawyer_${Date.now()}`;
+            const newLawyer = {
+                id: newId,
+                name: name,
+                college: college,
+                city: city,
+                specialty: specialty,
+                rating: "5.0",
+                reviews: 0,
+                price: 50,
+                status: "Изчаква проверка", 
+                password: password,
+                earnedIncome: 0,
+                slots: {
+                    "14:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "15:30": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' },
+                    "17:00": { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' }
+                }
+            };
+
+            lawyers.push(newLawyer);
+            saveState();
+
+            currentLawyerId = newId;
+            localStorage.setItem('lexdoc_session_lawyer', currentLawyerId);
+            updateNavigationBadges();
+            
+            alert(`Успешно плащане за ${selectedPlanMetadata.name}! Профилът Ви е създаден и очаква верификация.`);
+            event.target.reset();
+            switchView('lawyer-dashboard');
+        }
+
+        function handleLawyerDirectLogin(event) {
+            event.preventDefault();
+            const name = document.getElementById('lawyer-login-name').value.trim();
+            const pass = document.getElementById('lawyer-login-password').value;
+
+            let found = lawyers.find(l => l.name.toLowerCase() === name.toLowerCase() && l.password === pass);
+            if(found) {
+                currentLawyerId = found.id;
+                localStorage.setItem('lexdoc_session_lawyer', currentLawyerId);
+                updateNavigationBadges();
+                switchView('lawyer-dashboard');
+                event.target.reset();
+            } else {
+                alert('Не е намерен регистриран адвокат или грешна парола!');
+            }
+        }
+
+        // ПУБЛИЧНО ТЪРСЕНЕ И СЛОТОВЕ
         function renderPublicLawyers() {
             const cityFilter = document.getElementById('filter-city').value;
             const specialtyFilter = document.getElementById('filter-specialty').value;
@@ -460,16 +868,17 @@
                 for(let time in lawyer.slots) {
                     const info = lawyer.slots[time];
                     
-                    if(info.booked || info.blocked || info.completed) {
+                    // Блокираните и заетите пишат "Зает"
+                    if(info.booked || info.blocked) {
                         slotsHTML += `
-                            <button class="bg-slate-200 text-slate-500 border border-slate-300 py-2 rounded text-sm text-center font-semibold cursor-not-allowed opacity-60" disabled>
+                            <button class="bg-slate-200 text-slate-500 border border-slate-300 py-2 rounded text-xs md:text-sm text-center font-semibold cursor-not-allowed opacity-60" disabled>
                                 Зает
                             </button>
                         `;
                     } else {
                         slotsHTML += `
                             <button onclick="openBookingModal('${lawyer.id}', '${time}')" 
-                                    class="bg-slate-50 text-slate-800 border border-slate-200 py-2 rounded text-sm text-center font-semibold transition-all duration-300 hover:bg-slate-900 hover:text-brand-gold active:scale-95 transform hover:scale-102 cursor-pointer shadow-sm">
+                                    class="bg-slate-50 text-slate-800 border border-slate-200 py-2 rounded text-xs md:text-sm text-center font-semibold transition-all duration-300 hover:bg-slate-900 hover:text-brand-gold active:scale-95 transform hover:scale-102 cursor-pointer shadow-sm">
                                 ${time} ч.
                             </button>
                         `;
@@ -477,23 +886,24 @@
                 }
 
                 container.innerHTML += `
-                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 flex flex-col lg:flex-row justify-between gap-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.005]">
+                    <div class="bg-white p-4 md:p-6 rounded-xl shadow-md border border-slate-100 flex flex-col lg:flex-row justify-between gap-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.005]">
                         <div class="flex gap-4">
-                            <div class="w-16 h-16 bg-brand-navy text-brand-gold rounded-full flex-shrink-0 flex items-center justify-center text-xl font-bold shadow-inner">
+                            <div class="w-12 h-12 md:w-16 md:h-16 bg-brand-navy text-brand-gold rounded-full flex-shrink-0 flex items-center justify-center text-sm md:text-xl font-bold shadow-inner">
                                 ${lawyer.name.split(' ').pop().substring(0,2).toUpperCase()}
                             </div>
                             <div>
-                                <h4 class="brand-serif text-xl font-bold text-brand-navy">${lawyer.name}</h4>
-                                <p class="text-sm text-brand-gold font-medium mb-1">${lawyer.college}</p>
-                                <p class="text-slate-600 text-sm max-w-xl mb-3">Специалист по поддръжка на казуси в сфера "${lawyer.specialty}".</p>
-                                <div class="flex flex-wrap gap-2 text-xs">
+                                <h4 class="brand-serif text-lg md:text-xl font-bold text-brand-navy">${lawyer.name}</h4>
+                                <p class="text-xs md:text-sm text-brand-gold font-medium mb-1">${lawyer.college}</p>
+                                <p class="text-slate-600 text-xs md:text-sm max-w-xl mb-3">Специалист по поддръжка на казуси в сфера "${lawyer.specialty}".</p>
+                                <div class="flex flex-wrap gap-2 text-[11px]">
                                     <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded">⭐ ${lawyer.rating} (${lawyer.reviews} отзива)</span>
                                     <span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded font-bold border border-emerald-100">Консултация: ${lawyer.price} €</span>
+                                    <span class="text-slate-400 self-center">📍 Град: ${lawyer.city}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:w-72 flex-shrink-0 border-t lg:border-t-0 lg:border-l border-slate-100 lg:pl-6 pt-4 lg:pt-0">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Налични часове:</p>
+                            <p class="text-xs font-bold text-slate-400 tracking-wider mb-3 uppercase">Налични часове:</p>
                             <div class="grid grid-cols-2 gap-2">
                                 ${slotsHTML}
                             </div>
@@ -528,49 +938,51 @@
             let lawyer = lawyers.find(l => l.id === selectedLawyerIdForBooking);
             if(!lawyer) return;
 
-            lawyer.slots[selectedTimeForBooking].bookedPrice = lawyer.price;
-            lawyer.slots[selectedTimeForBooking].booked = true;
-            lawyer.slots[selectedTimeForBooking].completed = false;
-            lawyer.slots[selectedTimeForBooking].clientName = document.getElementById('modal-client-name').value;
-            lawyer.slots[selectedTimeForBooking].phone = document.getElementById('modal-client-phone').value;
-            lawyer.slots[selectedTimeForBooking].note = document.getElementById('modal-client-note').value;
-            
-            const fileInput = document.getElementById('modal-file');
-            lawyer.slots[selectedTimeForBooking].fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Няма документи';
+            const slot = lawyer.slots[selectedTimeForBooking];
+            slot.bookedPrice = lawyer.price;
+            slot.booked = true;
+            slot.completed = false;
+            slot.clientName = document.getElementById('modal-client-name').value;
+            slot.phone = document.getElementById('modal-client-phone').value;
+            slot.note = document.getElementById('modal-client-note').value;
+            slot.clientUser = currentUser; 
 
-            event.target.reset();
+            const fileInput = document.getElementById('modal-file');
+            slot.fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Няма документи';
+
+            document.getElementById('booking-form').reset();
             closeBookingModal();
             
+            saveState();
             renderPublicLawyers();
             renderLawyerDashboard();
             renderAdminTable();
             
-            alert(`Часът в ${selectedTimeForBooking} ч. е успешно резервиран на фиксирана цена от ${lawyer.price} €!`);
+            alert(`Часът в ${selectedTimeForBooking} ч. е успешно резервиран!`);
         }
 
+        // ПРЕГЛЕД НА ЧАСОВЕ ЗА КЛИЕНТ
         function renderClientBookings() {
             const container = document.getElementById('client-bookings-container');
             container.innerHTML = "";
-
             let counter = 0;
 
             lawyers.forEach(lawyer => {
                 for(let time in lawyer.slots) {
                     const slot = lawyer.slots[time];
-                    
-                    if(slot.booked && !slot.completed) {
+                    if(slot.booked && !slot.completed && slot.clientUser === currentUser) {
                         counter++;
                         container.innerHTML += `
-                            <div class="bg-white p-5 rounded-xl shadow-md border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-red-200 transition duration-300">
-                                <div>
-                                    <span class="text-sm font-bold uppercase tracking-wider text-brand-gold bg-slate-900 px-2.5 py-1 rounded mr-2">${time} ч.</span>
-                                    <span class="font-bold text-lg text-brand-navy">${lawyer.name}</span>
+                            <div class="bg-white p-4 md:p-5 rounded-xl shadow-md border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-red-200 transition duration-300">
+                                <div class="w-full">
+                                    <span class="text-xs md:text-sm font-bold uppercase tracking-wider text-brand-gold bg-slate-900 px-2.5 py-1 rounded mr-2">${time} ч.</span>
+                                    <span class="font-bold text-base md:text-lg text-brand-navy">${lawyer.name}</span>
                                     <div class="text-xs text-slate-500 mt-1">Сфера: ${lawyer.specialty} | Град: ${lawyer.city}</div>
                                     <div class="text-sm mt-2 text-slate-800"><strong>Записан за:</strong> ${slot.clientName} (${slot.phone})</div>
                                     <div class="text-xs text-slate-600 bg-slate-50 border-l-2 border-slate-300 p-2 rounded mt-1"><strong>Казус:</strong> ${slot.note}</div>
-                                    <div class="text-xs text-emerald-700 font-bold mt-1">Фиксирана цена при покупка: ${slot.bookedPrice} €</div>
+                                    <div class="text-xs text-emerald-700 font-bold mt-1">Фиксирана цена: ${slot.bookedPrice} €</div>
                                 </div>
-                                <button onclick="handleCancelBooking('${lawyer.id}', '${time}')" class="w-full md:w-auto bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 text-xs font-bold px-4 py-2.5 rounded-lg transition-all duration-300 active:scale-95 shadow-sm cursor-pointer">
+                                <button onclick="handleCancelBooking('${lawyer.id}', '${time}')" class="w-full md:w-auto bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 text-xs font-bold px-4 py-2.5 rounded-lg transition-all duration-300 active:scale-95 shadow-sm cursor-pointer whitespace-nowrap">
                                     ❌ Откажи часа
                                 </button>
                             </div>
@@ -594,30 +1006,25 @@
 
             let lawyer = lawyers.find(l => l.id === lawyerId);
             if(lawyer && lawyer.slots[time]) {
-                const slot = lawyer.slots[time];
-                
-                slot.booked = false;
-                slot.completed = false;
-                slot.bookedPrice = 0;
-                slot.clientName = '';
-                slot.phone = '';
-                slot.note = '';
-                slot.fileName = '';
-
+                lawyer.slots[time] = { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' };
+                saveState();
                 renderClientBookings();
                 renderPublicLawyers();
                 renderLawyerDashboard();
                 renderAdminTable();
-
-                alert('Часът Ви е анулиран успешно и слотът е освободен за нови клиенти.');
+                alert('Часът Ви е анулиран успешно.');
             }
         }
 
+        // АДВ. ЛИЧЕН КАБИНЕТ
         function buildDashboardLawyerOptions() {
             const selector = document.getElementById('dashboard-lawyer-selector');
+            if(!selector) return;
             selector.innerHTML = "";
-            lawyers.forEach(l => {
-                selector.innerHTML += `<option value="${l.id}">${l.name}</option>`;
+            let scopeLawyers = currentLawyerId ? lawyers.filter(l => l.id === currentLawyerId) : lawyers;
+
+            scopeLawyers.forEach(l => {
+                selector.innerHTML += `<option value="${l.id}" ${l.id === activeDashboardLawyerId ? 'selected':''}>${l.name}</option>`;
             });
         }
 
@@ -635,66 +1042,52 @@
             container.innerHTML = "";
 
             let activeBookings = 0;
-            let totalIncome = 0;
+            let totalIncome = lawyer.earnedIncome || 0; // Вземане на трайно спечеления оборот
 
             for(let time in lawyer.slots) {
                 const info = lawyer.slots[time];
                 let rowContent = "";
                 let actionBtnHTML = "";
 
-                if(info.booked || info.completed) {
+                if(info.booked) {
                     totalIncome += info.bookedPrice;
-                }
-
-                if(info.completed) {
-                    rowContent = `
-                        <div class="opacity-75">
-                            <span class="text-lg font-bold text-slate-400 line-through">${time} ч.</span>
-                            <div class="text-xs font-bold text-emerald-600 mt-0.5">✓ Консултацията е извършена и приключена (Фиксирана такса: ${info.bookedPrice} €)</div>
-                            <div class="text-sm mt-1 text-slate-700">Клиент: ${info.clientName} | ${info.phone}</div>
-                        </div>
-                    `;
-                    actionBtnHTML = `
-                        <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full font-bold">Архивиран / Спечелен</span>
-                    `;
-                } else if(info.booked) {
                     activeBookings++;
                     rowContent = `
                         <div>
-                            <span class="text-lg font-bold text-brand-navy">${time} ч.</span>
-                            <span class="text-xs bg-slate-100 text-slate-700 ml-2 px-2 py-0.5 rounded font-bold border border-slate-200">Договерена цена: ${info.bookedPrice} €</span>
-                            <div class="text-sm mt-1 font-semibold text-slate-800">Клиент: ${info.clientName} (${info.phone})</div>
+                            <span class="text-base md:text-lg font-bold text-brand-navy">${time} ч.</span>
+                            <span class="text-xs bg-slate-100 text-slate-700 ml-2 px-2 py-0.5 rounded font-bold border border-slate-200">Цена: ${info.bookedPrice} €</span>
+                            <div class="text-xs md:text-sm mt-1 font-semibold text-slate-800">Клиент: ${info.clientName} (${info.phone}) [Профил: ${info.clientUser}]</div>
                             <div class="text-xs text-slate-600 bg-slate-50 p-2 rounded mt-1 border-l-2 border-brand-gold"><strong>Казус:</strong> ${info.note}</div>
                             <div class="text-xs text-blue-700 mt-1 font-medium flex items-center gap-1">📎 Файл: <span class="underline">${info.fileName}</span></div>
                         </div>
                     `;
                     actionBtnHTML = `
-                        <button onclick="handleCompleteSlot('${time}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 py-2 rounded font-semibold transition-all duration-300 active:scale-95 shadow-sm transform hover:scale-105 cursor-pointer">
+                        <button onclick="handleCompleteSlot('${time}')" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 py-2 rounded font-semibold transition-all duration-300 active:scale-95 shadow-sm transform hover:scale-105 cursor-pointer whitespace-nowrap">
                             ✓ Приключи консултацията
                         </button>
                     `;
                 } else if(info.blocked) {
                     rowContent = `
                         <div>
-                            <span class="text-lg font-bold text-slate-400">${time} ч.</span>
-                            <div class="text-sm mt-1 text-amber-700 font-medium italic">Слотът е ръчно блокиран (Потребителите виждат: "Зает")</div>
+                            <span class="text-base md:text-lg font-bold text-slate-400">${time} ч.</span>
+                            <div class="text-xs md:text-sm mt-1 text-amber-700 font-medium italic">Слотът е ръчно блокиран</div>
                         </div>
                     `;
                     actionBtnHTML = `
                         <button onclick="handleToggleBlockSlot('${time}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs px-4 py-2 rounded font-semibold transition-all duration-300 active:scale-95 transform hover:scale-105 cursor-pointer">
-                            Освободи часа
+                            Освободи
                         </button>
                     `;
                 } else {
                     rowContent = `
                         <div>
-                            <span class="text-lg font-bold text-brand-navy">${time} ч.</span>
-                            <div class="text-sm mt-1 text-slate-400 italic">Няма записана консултация</div>
+                            <span class="text-base md:text-lg font-bold text-brand-navy">${time} ч.</span>
+                            <div class="text-xs text-slate-400 italic">Няма записана консултация (Свободен)</div>
                         </div>
                     `;
                     actionBtnHTML = `
                         <button onclick="handleToggleBlockSlot('${time}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs px-4 py-2 rounded font-semibold transition-all duration-300 active:scale-95 transform hover:scale-105 cursor-pointer">
-                            Блокирай час
+                            Блокирай
                         </button>
                     `;
                 }
@@ -702,7 +1095,7 @@
                 container.innerHTML += `
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-300 hover:border-slate-300">
                         ${rowContent}
-                        <div class="flex-shrink-0">${actionBtnHTML}</div>
+                        <div class="flex-shrink-0 w-full sm:w-auto text-right">${actionBtnHTML}</div>
                     </div>
                 `;
             }
@@ -711,19 +1104,24 @@
             document.getElementById('expected-income').innerText = `${totalIncome} €`;
         }
 
+        // ОБНОВЕНО: Приемане/Приключване изчиства слота изцяло за повторно ползване
         function handleCompleteSlot(time) {
             let lawyer = lawyers.find(l => l.id === activeDashboardLawyerId);
             if(!lawyer) return;
 
             const slot = lawyer.slots[time];
             if(slot.booked) {
-                slot.booked = false;
-                slot.completed = true; 
+                // Прехвърляме сумата в постоянен баланс на адвоката
+                lawyer.earnedIncome = (lawyer.earnedIncome || 0) + slot.bookedPrice;
+                // Нулираме слота обратно в начално състояние (Освободен)
+                lawyer.slots[time] = { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' };
             }
 
+            saveState();
             renderLawyerDashboard();
             renderPublicLawyers();
             renderAdminTable(); 
+            alert('Консултацията приключи! Слотът вече е свободен за нови клиенти.');
         }
 
         function handleToggleBlockSlot(time) {
@@ -731,10 +1129,11 @@
             if(!lawyer) return;
 
             const slot = lawyer.slots[time];
-            if(!slot.booked && !slot.completed) {
+            if(!slot.booked) {
                 slot.blocked = !slot.blocked;
             }
 
+            saveState();
             renderLawyerDashboard();
             renderPublicLawyers();
         }
@@ -743,24 +1142,23 @@
             let lawyer = lawyers.find(l => l.id === activeDashboardLawyerId);
             if(!lawyer) return;
             lawyer.price = Number(val);
+            saveState();
             renderLawyerDashboard();
             renderPublicLawyers();
             renderAdminTable();
         }
 
+        // АДМИН ПАНЕЛ РЕГИСТЪР И УПРАВЛЕНИЕ
         function renderAdminTable() {
             const tbody = document.getElementById('admin-lawyers-table-body');
+            if(!tbody) return;
             tbody.innerHTML = "";
 
-            document.getElementById('admin-total-lawyers').innerText = `${lawyers.length} колеги`;
+            document.getElementById('admin-total-lawyers').innerText = `${lawyers.length} субекта`;
 
             let earnedFromCompleted = 0;
             lawyers.forEach(l => {
-                for(let time in l.slots) {
-                    if(l.slots[time].completed) {
-                        earnedFromCompleted += l.slots[time].bookedPrice;
-                    }
-                }
+                earnedFromCompleted += (l.earnedIncome || 0);
             });
 
             let totalTurnover = BASE_SYSTEM_TURNOVER + earnedFromCompleted;
@@ -769,6 +1167,7 @@
             document.getElementById('admin-turnover').innerText = `${totalTurnover.toLocaleString()} €`;
             document.getElementById('admin-platform-fee').innerText = `${platformFee.toLocaleString()} €`;
 
+            // Зареждане на адвокати
             lawyers.forEach(lawyer => {
                 let badgeClass = "bg-emerald-100 text-emerald-800";
                 if(lawyer.status === "Изчаква проверка") badgeClass = "bg-amber-100 text-amber-800";
@@ -791,6 +1190,13 @@
                     `;
                 }
 
+                // НОВО: Добавяне на червен бутон за триене, ако НЕ Е lawyer_1 или lawyer_2
+                if (lawyer.id !== 'lawyer_1' && lawyer.id !== 'lawyer_2') {
+                    actionButtons += `
+                        <button onclick="adminDeleteLawyer('${lawyer.id}')" class="text-xs bg-red-600 text-white px-2.5 py-1 rounded-md hover:bg-red-700 font-bold transition-all duration-200 active:scale-95 cursor-pointer ml-2">Изтрий</button>
+                    `;
+                }
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50/80 transition duration-150">
                         <td class="p-4 font-semibold text-brand-navy">${lawyer.name}</td>
@@ -798,16 +1204,37 @@
                         <td class="p-4"><span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-0.5 rounded border border-slate-200">${lawyer.specialty}</span></td>
                         <td class="p-4 font-bold text-slate-800">${lawyer.price} €</td>
                         <td class="p-4"><span class="${badgeClass} text-xs px-2.5 py-1 rounded-full font-bold">${lawyer.status}</span></td>
-                        <td class="p-4 text-center space-x-1">${actionButtons}</td>
+                        <td class="p-4 text-center space-x-1 whitespace-nowrap">${actionButtons}</td>
                     </tr>
                 `;
             });
+
+            // НОВО: Зареждане на таблицата с регистрирани клиенти
+            const clientsTbody = document.getElementById('admin-clients-table-body');
+            if(clientsTbody) {
+                clientsTbody.innerHTML = "";
+                if(clients.length === 0) {
+                    clientsTbody.innerHTML = `<tr><td colspan="2" class="p-4 text-slate-400 italic text-center">Няма регистрирани потребители.</td></tr>`;
+                } else {
+                    clients.forEach(client => {
+                        clientsTbody.innerHTML += `
+                            <tr class="hover:bg-slate-50/80 transition duration-150">
+                                <td class="p-4 font-semibold text-brand-navy">${client.username}</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="adminDeleteClient('${client.username}')" class="text-xs bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-md font-bold hover:bg-red-600 hover:text-white transition-all duration-200 active:scale-95 cursor-pointer">Изтрий профила</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
         }
 
         function adminApproveLawyer(id) {
             let lawyer = lawyers.find(l => l.id === id);
             if(lawyer) {
                 lawyer.status = "Верифициран";
+                saveState();
                 renderAdminTable();
                 renderPublicLawyers();
             }
@@ -817,6 +1244,7 @@
             let lawyer = lawyers.find(l => l.id === id);
             if(lawyer) {
                 lawyer.status = "Замразен";
+                saveState();
                 renderAdminTable();
                 renderPublicLawyers();
             }
@@ -829,10 +1257,60 @@
             let newPrice = prompt(`Промени базова цена в Евро (€) за ${lawyer.name}:`, lawyer.price);
             if(newPrice !== null && !isNaN(newPrice) && newPrice.trim() !== "") {
                 lawyer.price = Number(newPrice);
+                saveState();
                 renderAdminTable();
                 renderPublicLawyers();
                 if(activeDashboardLawyerId === id) renderLawyerDashboard();
             }
+        }
+
+        // НОВО: Функция за окончателно изтриване на адвокат от администратор
+        function adminDeleteLawyer(id) {
+            if (id === 'lawyer_1' || id === 'lawyer_2') {
+                alert('Този адвокат е системен и не може да бъде премахнат!');
+                return;
+            }
+            if (!confirm('Сигурни ли сте, че искате да изтриете този адвокат и неговия график завинаги?')) return;
+            
+            lawyers = lawyers.filter(l => l.id !== id);
+            if (currentLawyerId === id) {
+                currentLawyerId = null;
+                localStorage.removeItem('lexdoc_session_lawyer');
+            }
+            
+            saveState();
+            renderAdminTable();
+            renderPublicLawyers();
+            buildDashboardLawyerOptions();
+            updateNavigationBadges();
+            alert('Адвокатът е премахнат успешно.');
+        }
+
+        // НОВО: Функция за окончателно изтриване на потребителски клиентски акаунт
+        function adminDeleteClient(username) {
+            if (!confirm(`Сигурни ли сте, че искате да изтриете акаунта на "${username}"? Всички негови записани часове ще бъдат анулирани.`)) return;
+            
+            clients = clients.filter(c => c.username !== username);
+            
+            // Освобождаваме часовете, които са били заети от този изтрит клиент
+            lawyers.forEach(lawyer => {
+                for(let time in lawyer.slots) {
+                    if(lawyer.slots[time].clientUser === username) {
+                        lawyer.slots[time] = { booked: false, blocked: false, completed: false, bookedPrice: 0, clientName: '', phone: '', note: '', fileName: '', clientUser: '' };
+                    }
+                }
+            });
+
+            if (currentUser === username) {
+                currentUser = null;
+                localStorage.removeItem('lexdoc_session_user');
+            }
+
+            saveState();
+            renderAdminTable();
+            renderPublicLawyers();
+            updateNavigationBadges();
+            alert('Потребителят е премахнат успешно от базата данни.');
         }
     </script>
 </body>
